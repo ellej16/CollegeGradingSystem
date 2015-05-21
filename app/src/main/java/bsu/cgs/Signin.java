@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 
 import com.activeandroid.query.Select;
@@ -18,6 +19,7 @@ import bsu.cgs.Models.User;
 public class Signin extends Activity {
 
     EditText tbUname;
+
     EditText tbPw;
     AlertDialog alertDialog;
 

@@ -8,4 +8,6 @@ import com.activeandroid.annotation.Table;
  */
 public class Schedule extends Model{
     //TODO schedule
+
+    public Schedule(){}
 }

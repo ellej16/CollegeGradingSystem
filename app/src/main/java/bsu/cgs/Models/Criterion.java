@@ -23,5 +23,6 @@ public class Criterion extends Model {
         this.percentage = percent;
         this.items = items;
     }
+    public Criterion(){}
 
 }

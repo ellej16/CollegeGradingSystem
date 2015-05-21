@@ -26,4 +26,6 @@ public class Class extends Model
 
     @Column(name="Criteria")
     public List<Criterion> criteria;
+
+    public Class(){}
 }

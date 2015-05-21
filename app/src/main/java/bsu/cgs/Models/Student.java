@@ -15,6 +15,7 @@ public class Student extends Model
     @Column(name="sname")
     public String studName;
 
+    public Student(){}
     //TODO other details
 
 }

@@ -12,9 +12,7 @@
     <string name="CPw">Confirm Password</string>
     <string name="title_activity_main_content">MainContent</string>
 
-    <string name="title_section1">Section 1</string>
-    <string name="title_section2">Section 2</string>
-    <string name="title_section3">Section 3</string>
+
     <string-array name="NavDrawerParts">
         <item>Class</item>
         <item>Subjects</item>
@@ -33,4 +31,5 @@
     <string name="class_create">Create Class</string>
     <string name="class_Manage">Manage Class</string>
     <string name="class_edit">Edit Class</string>
+    <string name="title_activity_main">CGS</string>
 </resources>

@@ -84,7 +84,7 @@ public class Signin extends Activity {
     {
         if(VerifyLogin())
         {
-            Intent intent = new Intent(this, MainContent.class);
+            Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
         }
         else

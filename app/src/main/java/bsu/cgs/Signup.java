@@ -1,18 +1,34 @@
 package bsu.cgs;
 
 import android.app.Activity;
-import android.support.v7.app.ActionBarActivity;
+import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
+
+import com.activeandroid.query.Select;
+
+import bsu.cgs.Models.User;
 
 
 public class Signup extends Activity {
 
+    EditText supEdit;
+    EditText supPw;
+    EditText supCPw;
+    AlertDialog alertDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
+        alertDialog = new AlertDialog.Builder(this).create();
+
+        supPw = (EditText)findViewById(R.id.usrPw);
+        supCPw = (EditText)findViewById(R.id.usrPwCf);
+        supEdit = (EditText)findViewById(R.id.usrNme);
     }
 
     @Override
@@ -36,4 +52,55 @@ public class Signup extends Activity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    public boolean validateInput()
+    {
+        //checks if username is not yet taken
+
+         User user;
+        user = new Select()
+               .from(User.class)
+               .where("username= ?", supEdit.getText())
+               .orderBy("RANDOM()")
+               .executeSingle();
+        if(user!=null)
+            return false;
+        else
+            return true;
+
+    }
+
+    public void sendMessage(View view)
+    {
+        if(validateInput())
+        {
+            if(supPw.getText().toString().contentEquals(supCPw.getText().toString())) {
+                User user =  new User();
+                user.uname = supEdit.getText().toString();
+                user.pword = supPw.getText().toString();
+                user.save();
+                Intent intent = new Intent(this, Signin.class);
+                startActivity(intent);
+            }
+            else
+            {
+                alertDialog.setTitle("Password mismatch");
+                alertDialog.setMessage("Password field and Confirm password field does not match");
+
+                alertDialog.show();
+
+            }
+
+        }
+        else
+        {
+            alertDialog.setTitle("Account already exists");
+            alertDialog.setMessage("Said username is already in use." +
+                    "please change or go back to Sign in");
+
+            alertDialog.show();
+
+        }
+    }
+
 }

@@ -8,7 +8,7 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/usrSignup"
+        android:id="@+id/usrNme"
         android:layout_alignParentTop="true"
         android:layout_marginTop="69dp"
         android:singleLine="false"
@@ -25,20 +25,21 @@
         android:layout_height="wrap_content"
         android:inputType="textPassword"
         android:ems="10"
-        android:id="@+id/usrPwSup"
-        android:layout_below="@+id/usrSignup"
+        android:id="@+id/usrPw"
+        android:layout_below="@+id/usrNme"
         android:maxLines="1"
         android:layout_centerHorizontal="true"
-        android:hint="@string/PwHint" />
+        android:hint="@string/PwHint"
+        android:layout_alignParentEnd="false" />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/Login"
         android:id="@+id/loginBtn"
-        android:layout_below="@+id/usrPwSup"
+        android:layout_below="@+id/usrPw"
         android:layout_centerHorizontal="true"
-        android:onClick="sendMessage"
+        android:onClick="sendMsgSignIn"
             />
 
     <Button
@@ -47,5 +48,8 @@
         android:text="@string/Signup"
         android:id="@+id/signupBtn"
         android:layout_below="@+id/loginBtn"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:onClick="sendMsgSignUp"
+
+        />
 </RelativeLayout>

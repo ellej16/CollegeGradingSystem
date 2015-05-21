@@ -3,7 +3,7 @@ package bsu.cgs.Models;
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
-/**
+/*
  * Created by Paul Justin on 05/21/2015.
  */
 @Table(name="User")
@@ -19,5 +19,9 @@ public class User extends Model{
         super();
         this.uname = uname;
         this.pword = pw;
+    }
+    public User()
+    {
+
     }
 }

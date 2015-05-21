@@ -18,7 +18,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-
+//TODO fix deprecated stuff
 public class MainContent extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
 

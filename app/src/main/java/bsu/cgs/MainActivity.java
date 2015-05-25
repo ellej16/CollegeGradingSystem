@@ -20,6 +20,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import bsu.cgs.Models.*;
+
 
 public class MainActivity extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
@@ -53,9 +55,25 @@ public class MainActivity extends ActionBarActivity
     public void onNavigationDrawerItemSelected(int position) {
         // update the main content by replacing fragments
         FragmentManager fragmentManager = getSupportFragmentManager();
+        Fragment frag;
+        switch(position)
+        {
+            case 0:
+                frag = Class.newInstance(position+1);
+                break;
+            case 1:
+                frag = PlaceholderFragment.newInstance(position+1);
+                break;
+            case 3:
+                frag = Student.newInstance(position + 1);
+                break;
+
+
+        }
         fragmentManager.beginTransaction()
-                .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
+                .replace(R.id.container,frag)
                 .commit();
+
 
     }
 
@@ -121,6 +139,7 @@ public class MainActivity extends ActionBarActivity
             PlaceholderFragment fragment = new PlaceholderFragment();
             Bundle args = new Bundle();
             args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+
             fragment.setArguments(args);
 
             return fragment;

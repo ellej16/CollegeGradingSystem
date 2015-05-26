@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:text="@string/class_create"
         android:id="@+id/btnClsCreate"
-        android:layout_above="@+id/button2"
+        android:layout_above="@+id/btnClsMng"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -19,8 +19,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/class_Manage"
-        android:id="@+id/button2"
-        android:layout_above="@+id/button3"
+        android:id="@+id/btnClsMng"
+        android:layout_above="@+id/btnClsEdit"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
@@ -28,7 +28,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/class_edit"
-        android:id="@+id/button3"
+        android:id="@+id/btnClsEdit"
         android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />

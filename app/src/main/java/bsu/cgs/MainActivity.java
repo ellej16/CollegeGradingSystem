@@ -30,6 +30,7 @@ public class MainActivity extends ActionBarActivity
         Subject.OnFragmentInteractionListener,
         subject_create.OnFragmentInteractionListener,
         Student.OnFragmentInteractionListener,
+        Class.OnFragmentInteractionListener,
         NavigationDrawerFragment.NavigationDrawerCallbacks
         {
 
@@ -39,6 +40,31 @@ public class MainActivity extends ActionBarActivity
     private FragmentManager fragmentManager;
     private NavigationDrawerFragment mNavigationDrawerFragment;
     private CharSequence mTitle;
+    //class section
+            public void onBtnClick(int section, int type)
+            {
+                Fragment frag = null;
+                switch(type)
+                {
+                    case 0:
+                        frag = class_create.newInstance(section);
+                        break;
+                    case 1:
+                        frag = class_mng.newInstance(section);
+                        break;
+                    case 2:
+                        frag = class_edit.newInstance(section);
+                        break;
+
+                }
+                fragmentManager = getSupportFragmentManager();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.container,frag)
+                        .commit();
+            }
+
+
+    //end of class section
     //Student section
             public void onAddNewStuds(int section)
             {

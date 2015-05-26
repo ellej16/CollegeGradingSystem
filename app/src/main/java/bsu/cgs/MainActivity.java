@@ -31,6 +31,7 @@ public class MainActivity extends ActionBarActivity
         subject_create.OnFragmentInteractionListener,
         Student.OnFragmentInteractionListener,
         Class.OnFragmentInteractionListener,
+        class_create.OnFragmentInteractionListener,
         NavigationDrawerFragment.NavigationDrawerCallbacks
         {
 
@@ -56,6 +57,26 @@ public class MainActivity extends ActionBarActivity
                         frag = class_edit.newInstance(section);
                         break;
 
+                }
+                fragmentManager = getSupportFragmentManager();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.container,frag)
+                        .commit();
+            }
+            public void onSelectOption(int section, int type)
+            {
+                Fragment frag = null;
+                switch(type)
+                {
+                    case 0:
+                        frag = class_sel_subj.newInstance(section);
+                        break;
+                    case 1:
+                        frag = class_mng_studs.newInstance(section);
+                        break;
+                    case 2:
+                        frag = class_mng_crit.newInstance(section);
+                        break;
                 }
                 fragmentManager = getSupportFragmentManager();
                 fragmentManager.beginTransaction()

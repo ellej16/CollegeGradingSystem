@@ -119,7 +119,7 @@ public class class_create extends Fragment {
     {}
 
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
+
         public void onSelectOption(int section , int type);
     }
 

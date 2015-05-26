@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 
 /**
@@ -30,14 +31,17 @@ public class Class extends Fragment {
     private OnFragmentInteractionListener mListener;
 
     private static final String ARG_SECTION_NUMBER = "section_number";
-    // TODO: Rename and change types and number of parameters
-    public static Class newInstance() {
+
+    Button btnClsCreate;
+    public static Class newInstance(int sectionNumber) {
         Class fragment = new Class();
         Bundle args = new Bundle();
+        args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+
         fragment.setArguments(args);
+
         return fragment;
     }
-
     public Class() {
         // Required empty public constructor
     }

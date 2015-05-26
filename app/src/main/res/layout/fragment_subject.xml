@@ -1,14 +1,14 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" tools:context="bsu.cgs.Student">
+    android:layout_height="match_parent" tools:context="bsu.cgs.Subject">
 
     <!-- TODO: Update blank fragment layout -->
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/Students_add"
-        android:id="@+id/btnAddStuds"
+        android:text="@string/Subj_add"
+        android:id="@+id/btnAddSubj"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="130dp" />
@@ -16,8 +16,8 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/Students_View"
-        android:id="@+id/btnViewStudents"
-        android:layout_below="@+id/btnAddStuds"
+        android:text="@string/Subj_Edit"
+        android:id="@+id/btnEditSubj"
+        android:layout_below="@+id/btnAddSubj"
         android:layout_centerHorizontal="true" />
 </RelativeLayout>

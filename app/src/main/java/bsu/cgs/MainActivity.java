@@ -1,6 +1,7 @@
 package bsu.cgs;
 
 import android.app.Activity;
+import android.net.Uri;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -19,12 +20,16 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import bsu.cgs.Models.*;
 
-
+//TODO fix titlebar
 public class MainActivity extends ActionBarActivity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks {
+        implements Class.OnFragmentInteractionListener,Student.OnFragmentInteractionListener,
+        Subject.OnFragmentInteractionListener,
+        NavigationDrawerFragment.NavigationDrawerCallbacks
+        {
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
@@ -36,6 +41,12 @@ public class MainActivity extends ActionBarActivity
      */
     private CharSequence mTitle;
 
+    public void onFragmentInteraction(Uri uri)
+    {
+
+        Toast toast = Toast.makeText(this, "Wheeee!"+uri.toString(),Toast.LENGTH_SHORT);
+        toast.show();
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,19 +66,24 @@ public class MainActivity extends ActionBarActivity
     public void onNavigationDrawerItemSelected(int position) {
         // update the main content by replacing fragments
         FragmentManager fragmentManager = getSupportFragmentManager();
-        Fragment frag;
+        Fragment frag = null;
         switch(position)
         {
             case 0:
-                frag = Class.newInstance(position+1);
+                frag = Class.newInstance(position);
                 break;
             case 1:
-                frag = PlaceholderFragment.newInstance(position+1);
+                frag = Student.newInstance(position);
+                break;
+            case 2:
+                frag = Subject.newInstance(position);
                 break;
             case 3:
-                frag = Student.newInstance(position + 1);
+                //todo: user settings
                 break;
-
+            case 4:
+                //todo: logout
+                break;
 
         }
         fragmentManager.beginTransaction()
@@ -79,7 +95,7 @@ public class MainActivity extends ActionBarActivity
 
     public void onSectionAttached(int number) {
         String[] titles = getResources().getStringArray(R.array.NavDrawerParts);
-        mTitle = titles[number-1];
+        mTitle = titles[number];
 
     }
 
@@ -135,15 +151,15 @@ public class MainActivity extends ActionBarActivity
          * Returns a new instance of this fragment for the given section
          * number.
          */
-        public static PlaceholderFragment newInstance(int sectionNumber) {
-            PlaceholderFragment fragment = new PlaceholderFragment();
-            Bundle args = new Bundle();
-            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+            public static PlaceholderFragment newInstance(int sectionNumber) {
+                PlaceholderFragment fragment = new PlaceholderFragment();
+                Bundle args = new Bundle();
+                args.putInt(ARG_SECTION_NUMBER, sectionNumber);
 
-            fragment.setArguments(args);
+                fragment.setArguments(args);
 
-            return fragment;
-        }
+                return fragment;
+            }
 
         public PlaceholderFragment() {
         }

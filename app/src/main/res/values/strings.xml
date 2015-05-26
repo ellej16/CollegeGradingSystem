@@ -32,4 +32,8 @@
     <string name="class_Manage">Manage Class</string>
     <string name="class_edit">Edit Class</string>
     <string name="title_activity_main">CGS</string>
+    <string name="Subj_add">Add Subject</string>
+    <string name="Subj_Edit">Edit Subject</string>
+    <string name="Students_add"> Add Students</string>
+    <string name="Students_View"> View Student Masterlist</string>
 </resources>

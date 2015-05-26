@@ -15,11 +15,14 @@ public class Class extends Model
     @Column(name="cSubject")
     public Subject cSubject;
 
-    @Column(name="schYear")
-    public String SchYr;
+    //@Column(name="schYear")
+    //public String SchYr; //for future use
 
-    @Column(name="CrtdBy")
-    public User createdBy;
+    //@Column(name="CrtdBy")
+    //public User createdBy; //for future use
+
+    @Column(name="cName")
+    public String cName;
 
     @Column(name="Students")
     public List<Student> students;

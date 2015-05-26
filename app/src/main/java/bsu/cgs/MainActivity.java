@@ -26,27 +26,38 @@ import bsu.cgs.Models.*;
 
 //TODO fix titlebar
 public class MainActivity extends ActionBarActivity
-        implements Class.OnFragmentInteractionListener,Student.OnFragmentInteractionListener,
+        implements
         Subject.OnFragmentInteractionListener,
+        subject_create.OnFragmentInteractionListener,
         NavigationDrawerFragment.NavigationDrawerCallbacks
         {
 
     /**
      * Fragment managing the behaviors, interactions and presentation of the navigation drawer.
      */
+    private FragmentManager fragmentManager;
     private NavigationDrawerFragment mNavigationDrawerFragment;
-
-    /**
-     * Used to store the last screen title. For use in {@link #restoreActionBar()}.
-     */
     private CharSequence mTitle;
+    //Subject Section
+            public void onAddSubj(int section)
+            {
+                fragmentManager = getSupportFragmentManager();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.container,subject_create.newInstance(section))
+                        .commit();
+            }
+            public void onEditSubj(int section)
+            {
 
-    public void onFragmentInteraction(Uri uri)
-    {
-
-        Toast toast = Toast.makeText(this, "Wheeee!"+uri.toString(),Toast.LENGTH_SHORT);
-        toast.show();
-    }
+            }
+            public void onSaveSubject(int section)
+            {
+                fragmentManager = getSupportFragmentManager();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.container,Subject.newInstance(section))
+                        .commit();
+            }
+            //end of Subject Section
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,7 +76,7 @@ public class MainActivity extends ActionBarActivity
     @Override
     public void onNavigationDrawerItemSelected(int position) {
         // update the main content by replacing fragments
-        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager = getSupportFragmentManager();
         Fragment frag = null;
         switch(position)
         {
@@ -73,10 +84,10 @@ public class MainActivity extends ActionBarActivity
                 frag = Class.newInstance(position);
                 break;
             case 1:
-                frag = Student.newInstance(position);
+                frag = Subject.newInstance(position);
                 break;
             case 2:
-                frag = Subject.newInstance(position);
+                frag = Student.newInstance(position);
                 break;
             case 3:
                 //todo: user settings
@@ -95,7 +106,7 @@ public class MainActivity extends ActionBarActivity
 
     public void onSectionAttached(int number) {
         String[] titles = getResources().getStringArray(R.array.NavDrawerParts);
-        mTitle = titles[number];
+        mTitle = "CGS: "+ titles[number];
 
     }
 
@@ -137,6 +148,7 @@ public class MainActivity extends ActionBarActivity
 
     }
 
+    // not used
     /**
      * A placeholder fragment containing a simple view.
      */
@@ -172,9 +184,6 @@ public class MainActivity extends ActionBarActivity
 
             return rootView;
         }
-
-
-
 
         @Override
         public void onAttach(Activity activity) {

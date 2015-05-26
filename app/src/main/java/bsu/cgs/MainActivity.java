@@ -29,6 +29,7 @@ public class MainActivity extends ActionBarActivity
         implements
         Subject.OnFragmentInteractionListener,
         subject_create.OnFragmentInteractionListener,
+        Student.OnFragmentInteractionListener,
         NavigationDrawerFragment.NavigationDrawerCallbacks
         {
 
@@ -38,6 +39,16 @@ public class MainActivity extends ActionBarActivity
     private FragmentManager fragmentManager;
     private NavigationDrawerFragment mNavigationDrawerFragment;
     private CharSequence mTitle;
+    //Student section
+            public void onAddNewStuds(int section)
+            {
+                fragmentManager = getSupportFragmentManager();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.container,student_create.newInstance(section))
+                        .commit();
+
+            }
+    //End of student section
     //Subject Section
             public void onAddSubj(int section)
             {

@@ -41,4 +41,11 @@
     <string name="General_save">Save</string>
     <string name="student_number">Student number</string>
     <string name="Student_name">Student name</string>
+    <string name="create_class_select">Select Subject</string>
+    <string name="create_class_subjcode">Subject Code</string>
+    <string name="class_create_name">Class name</string>
+    <string name="class_mng_studs">Manage Students</string>
+    <string name="class_mng_criteria">Manage Criteria</string>
+    <string name="class_critstat">100% divided over 0 criteria</string>
+    <string name="class_studstats">there are currently 0 students</string>
 </resources>

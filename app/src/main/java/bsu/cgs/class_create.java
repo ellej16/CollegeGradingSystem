@@ -98,13 +98,6 @@ public class class_create extends Fragment {
         return classCreateView;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
-
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
@@ -122,9 +115,12 @@ public class class_create extends Fragment {
         mListener = null;
     }
 
+    public void save()
+    {}
+
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        public void onFragmentInteraction(Uri uri);
+        public void onSelectOption(int section , int type);
     }
 
 }

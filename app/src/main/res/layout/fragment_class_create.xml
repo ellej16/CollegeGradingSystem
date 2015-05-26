@@ -1,9 +1,94 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent" tools:context="bsu.cgs.class_create">
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+        android:layout_height="wrap_content" tools:context="bsu.cgs.class_create"
+        android:layout_marginTop="54dp"
+        android:id="@+id/relativeLayout"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/create_class_select"
+        android:id="@+id/lblSelSubj"
+        android:editable="false"
+        android:inputType="none"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView android:layout_width="match_parent" android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/create_class_subjcode"
+        android:id="@+id/lblSubjCode"
+        android:editable="false"
+        android:hint="@string/create_class_subjcode"
+        android:inputType="none"
+        android:layout_below="@+id/lblSelSubj"
+        android:layout_alignParentLeft="true" />
 
-</FrameLayout>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tbCname"
+        android:layout_below="@+id/lblSubjCode"
+        android:layout_alignParentLeft="true"
+        android:hint="@string/class_create_name" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/class_mng_criteria"
+        android:id="@+id/btnMngCrit"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/lblCrit"
+        android:layout_alignParentLeft="true" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/class_studstats"
+        android:id="@+id/lblStudCount"
+        android:editable="false"
+        android:inputType="none"
+        android:layout_below="@+id/tbCname"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/class_mng_studs"
+        android:id="@+id/btnMngStuds"
+        android:layout_below="@+id/btnMngCrit"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/class_critstat"
+        android:id="@+id/lblCrit"
+        android:editable="false"
+        android:inputType="none"
+        android:layout_below="@+id/lblStudCount"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+    </RelativeLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/General_save"
+        android:id="@+id/btnCcrtSave"
+        android:layout_marginTop="58dp"
+        android:layout_below="@+id/relativeLayout"
+        android:layout_centerHorizontal="true" />
+</RelativeLayout>

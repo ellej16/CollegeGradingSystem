@@ -32,6 +32,7 @@ public class MainActivity extends ActionBarActivity
         Student.OnFragmentInteractionListener,
         Class.OnFragmentInteractionListener,
         class_create.OnFragmentInteractionListener,
+        class_subject_select.OnFragmentInteractionListener,
         NavigationDrawerFragment.NavigationDrawerCallbacks
         {
 
@@ -42,6 +43,14 @@ public class MainActivity extends ActionBarActivity
     private NavigationDrawerFragment mNavigationDrawerFragment;
     private CharSequence mTitle;
     //class section
+            public void onSelectSubj(String subjcode , int section)
+            {
+
+                fragmentManager = getSupportFragmentManager();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.container,class_create.newInstance(section,subjcode))
+                        .commit();
+            }
             public void onBtnClick(int section, int type)
             {
                 Fragment frag = null;
@@ -51,10 +60,10 @@ public class MainActivity extends ActionBarActivity
                         frag = class_create.newInstance(section);
                         break;
                     case 1:
-                        frag = class_mng.newInstance(section);
+                      //  frag = class_mng.newInstance(section);
                         break;
                     case 2:
-                        frag = class_edit.newInstance(section);
+                        //frag = class_edit.newInstance(section);
                         break;
 
                 }
@@ -69,13 +78,13 @@ public class MainActivity extends ActionBarActivity
                 switch(type)
                 {
                     case 0:
-                        frag = class_sel_subj.newInstance(section);
+                        frag = class_subject_select.newInstance(section);
                         break;
                     case 1:
-                        frag = class_mng_studs.newInstance(section);
+                       // frag = class_mng_studs.newInstance(section);
                         break;
                     case 2:
-                        frag = class_mng_crit.newInstance(section);
+                        //frag = class_mng_crit.newInstance(section);
                         break;
                 }
                 fragmentManager = getSupportFragmentManager();

@@ -4,9 +4,22 @@ import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ListAdapter;
+import android.widget.ListView;
+
+import com.activeandroid.query.Select;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import bsu.cgs.Models.*;
+import bsu.cgs.Models.Student;
 
 
 /**
@@ -20,15 +33,25 @@ import android.view.ViewGroup;
 public class class_mng_students extends Fragment {
 
     private OnFragmentInteractionListener mListener;
+    private static final String ARG_SECTION_NUMBER = "section_number";
 
-    public static class_mng_students newInstance(String param1, String param2) {
+
+    private ListView mListView;
+    private Button saveStuds;
+    private ListAdapter mListAdapter;
+
+
+
+    public static class_mng_students newInstance(int sectionNumber)
+    {
         class_mng_students fragment = new class_mng_students();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+
         fragment.setArguments(args);
         return fragment;
     }
+
 
     public class_mng_students() {
         // Required empty public constructor
@@ -38,24 +61,31 @@ public class class_mng_students extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+
         }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_class_mng_students, container, false);
+        View mngStudsView =inflater.inflate(R.layout.fragment_class_mng_students, container, false);
+        mListView = (ListView) mngStudsView.findViewById(R.id.studentList);
+        saveStuds = (Button) mngStudsView.findViewById(R.id.btnStSelSave);
+        saveStuds.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                save();
+            }
+        });
+        mListAdapter = new ArrayAdapter<String>( getActivity(),
+                android.R.layout.simple_list_item_multiple_choice, android.R.id.text1, getContent());
+
+        mListView.setAdapter(mListAdapter);
+        return mngStudsView;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
+
 
     @Override
     public void onAttach(Activity activity) {
@@ -74,19 +104,35 @@ public class class_mng_students extends Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
+    public List<String> getContent()
+    {
+        List<String> content = new ArrayList<String>();
+        List<Student> studs;
+        studs = new Select()
+                .from(Student.class)
+                .orderBy("sname ASC")
+                .execute();
+        for(Student stud : studs)
+        {
+            content.add(stud.studName+":"+stud.studNum);
+        }
+        return content;
+    }
+
+    public void save()
+    {
+        List<String> studs = new ArrayList<String>();
+        SparseBooleanArray studList  = mListView.getCheckedItemPositions();
+        for(int i = 0; i < mListView.getCount(); i++)
+            if (studList.get(i))
+                studs.add(mListView.getItemAtPosition(i).toString());
+
+        mListener.onStudentsSelected(getArguments().getInt(ARG_SECTION_NUMBER),studs);
+    }
+
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
-        public void onFragmentInteraction(Uri uri);
+        public void onStudentsSelected(int section,List<String> studs);
     }
 
 }

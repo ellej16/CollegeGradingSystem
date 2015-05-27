@@ -45,7 +45,7 @@ public class Class extends Fragment {
         View classView =inflater.inflate(R.layout.fragment_class, container, false);
         btnClsCreate = (Button) classView.findViewById(R.id.btnClsCreate);
         btnClsMng = (Button) classView.findViewById(R.id.btnClsMng);
-        btnClsMng = (Button) classView.findViewById(R.id.btnClsEdit);
+        btnClsEdit = (Button) classView.findViewById(R.id.btnClsEdit);
 
         btnClsMng.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,7 +79,7 @@ public class Class extends Fragment {
             mListener = (OnFragmentInteractionListener) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
-                    + " must implement ClassListener");
+                    + " must implement SubjectListener");
         }
         ((MainActivity) activity).onSectionAttached(
                 getArguments().getInt(ARG_SECTION_NUMBER));

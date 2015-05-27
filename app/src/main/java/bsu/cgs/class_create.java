@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.activeandroid.query.Select;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import bsu.cgs.Models.*;
 import bsu.cgs.Models.Class;
@@ -24,19 +25,23 @@ import bsu.cgs.Models.Subject;
 public class class_create extends Fragment
 {
 
+    //todo: if selectStuds is clicked AGAIN it should retain selection
+    //todo: if selectCrit is clicked AGAIN ti should retain selection
+
     private OnFragmentInteractionListener mListener;
 
     private static final String ARG_SECTION_NUMBER = "section_number";
     private static final String ARG_SUBJ_CODE = "subject_code";
 
-
+    //booleans for dynamic shit
     private static boolean subSelected = false;
 
 
     Subject subj = null; //implements subj
     ArrayList<Criterion>  criteria = null; //implements addcriteria
-    ArrayList<Student> students = null; //implements addstudent
 
+    ArrayList<Student> students = null; //implements addstudent
+    private static List<String> selStuds = new ArrayList<String>();
     Button btnMngStuds;
     Button btnMngCrit;
     Button btnSave;
@@ -52,9 +57,9 @@ public class class_create extends Fragment
         class_create fragment = new class_create();
         Bundle args = new Bundle();
         args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-
         fragment.setArguments(args);
         subSelected = false;
+        selStuds.clear();
         return fragment;
     }
 
@@ -66,8 +71,21 @@ public class class_create extends Fragment
         args.putString(ARG_SUBJ_CODE, subjcode);
         fragment.setArguments(args);
         subSelected = true;
+
         return fragment;
     }
+
+
+    public static class_create newInstance(int sectionNumber , List<String> students) {
+        class_create fragment = new class_create();
+        Bundle args = new Bundle();
+        args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+        selStuds = students;
+        fragment.setArguments(args);
+
+        return fragment;
+    }
+
 
 
 
@@ -112,8 +130,6 @@ public class class_create extends Fragment
         });
 
         lblSubjCode = (TextView) classCreateView.findViewById(R.id.lblSubjCode);
-        if(subSelected)
-            lblSubjCode.setText(getArguments().getString(ARG_SUBJ_CODE).split(":")[0]);
         lblSubjName= (TextView) classCreateView.findViewById(R.id.lblSelSubj);
         if(subSelected)
         {
@@ -128,6 +144,13 @@ public class class_create extends Fragment
             }
         });
         lblStudCount= (TextView) classCreateView.findViewById(R.id.lblStudCount);
+        if(!selStuds.isEmpty())
+            lblStudCount.setText("There are currently "+selStuds.size() + "students in this class");
+
+        else
+            lblStudCount.setText("There are currently 0 students in this class");
+
+
         lblCritCount= (TextView) classCreateView.findViewById(R.id.lblCrit);
         tbCname = (EditText) classCreateView.findViewById(R.id.tbCname);
 

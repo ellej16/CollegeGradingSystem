@@ -18,7 +18,8 @@ import bsu.cgs.Models.Student;
 import com.activeandroid.query.Select;
 
 
-public class student_create extends Fragment {
+public class student_create extends Fragment
+{
 
 
 

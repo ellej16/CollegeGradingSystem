@@ -18,7 +18,8 @@ import bsu.cgs.Models.*;
 import bsu.cgs.Models.Subject;
 
 
-public class subject_create extends Fragment {
+public class subject_create extends Fragment
+{
     //TODO fix param shits
     private static final String ARG_SECTION_NUMBER = "section_number";
 

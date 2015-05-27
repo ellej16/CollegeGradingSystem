@@ -22,6 +22,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.net.URI;
+import java.util.List;
+
 import bsu.cgs.Models.*;
 
 //TODO fix titlebar
@@ -33,6 +36,7 @@ public class MainActivity extends ActionBarActivity
         Class.OnFragmentInteractionListener,
         class_create.OnFragmentInteractionListener,
         class_subject_select.OnFragmentInteractionListener,
+        class_mng_students.OnFragmentInteractionListener,
         NavigationDrawerFragment.NavigationDrawerCallbacks
         {
 
@@ -43,6 +47,13 @@ public class MainActivity extends ActionBarActivity
     private NavigationDrawerFragment mNavigationDrawerFragment;
     private CharSequence mTitle;
     //class section
+            public void onStudentsSelected(int section,List<String> students) //@class_mng_studs
+            {
+                fragmentManager = getSupportFragmentManager();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.container,class_create.newInstance(section,students))
+                        .commit();
+            }
             public void onSelectSubj(String subjcode , int section)
             {
 
@@ -81,7 +92,7 @@ public class MainActivity extends ActionBarActivity
                         frag = class_subject_select.newInstance(section);
                         break;
                     case 1:
-                       // frag = class_mng_studs.newInstance(section);
+                        frag = class_mng_students.newInstance(section);
                         break;
                     case 2:
                         //frag = class_mng_crit.newInstance(section);

@@ -11,13 +11,31 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.activeandroid.query.Select;
 
-public class class_create extends Fragment {
+import java.util.ArrayList;
+
+import bsu.cgs.Models.*;
+import bsu.cgs.Models.Class;
+import bsu.cgs.Models.Student;
+import bsu.cgs.Models.Subject;
+
+
+public class class_create extends Fragment
+{
 
     private OnFragmentInteractionListener mListener;
 
     private static final String ARG_SECTION_NUMBER = "section_number";
+    private static final String ARG_SUBJ_CODE = "subject_code";
 
+
+    private static boolean subSelected = false;
+
+
+    Subject subj = null; //implements subj
+    ArrayList<Criterion>  criteria = null; //implements addcriteria
+    ArrayList<Student> students = null; //implements addstudent
 
     Button btnMngStuds;
     Button btnMngCrit;
@@ -36,9 +54,22 @@ public class class_create extends Fragment {
         args.putInt(ARG_SECTION_NUMBER, sectionNumber);
 
         fragment.setArguments(args);
-
+        subSelected = false;
         return fragment;
     }
+
+
+    public static class_create newInstance(int sectionNumber , String subjcode) {
+        class_create fragment = new class_create();
+        Bundle args = new Bundle();
+        args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+        args.putString(ARG_SUBJ_CODE, subjcode);
+        fragment.setArguments(args);
+        subSelected = true;
+        return fragment;
+    }
+
+
 
     public class_create() {
         // Required empty public constructor
@@ -81,7 +112,15 @@ public class class_create extends Fragment {
         });
 
         lblSubjCode = (TextView) classCreateView.findViewById(R.id.lblSubjCode);
+        if(subSelected)
+            lblSubjCode.setText(getArguments().getString(ARG_SUBJ_CODE).split(":")[0]);
         lblSubjName= (TextView) classCreateView.findViewById(R.id.lblSelSubj);
+        if(subSelected)
+        {
+            lblSubjCode.setText(getArguments().getString(ARG_SUBJ_CODE).split(":")[0]);
+            lblSubjName.setText(getArguments().getString(ARG_SUBJ_CODE).split(":")[1]);
+        }
+
         lblSubjName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -116,7 +155,35 @@ public class class_create extends Fragment {
     }
 
     public void save()
-    {}
+    {/*
+        if() //if requirements are not met
+        {
+            //TODO: communicating between fragments?
+        }
+        else //else go g
+        {
+
+
+            Class qclass;
+            qclass = new Select()
+                .from(Class.class)
+                .where("cName=? AND cSubject.desc = ?",tbCname.getText(),lblSubjName.getText())
+                .orderBy("RANDOM()")
+                .executeSingle();
+            if(qclass!=null)
+            {
+
+            }
+            else
+            {
+                Class newClass = new Class();
+                newClass.cName = tbCname.getText().toString();
+
+                //todo:criteriaaaa
+            }
+        }
+        */
+    }
 
     public interface OnFragmentInteractionListener {
 

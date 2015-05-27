@@ -20,8 +20,6 @@ import java.util.List;
 
 import bsu.cgs.Models.*;
 import bsu.cgs.Models.Subject;
-import bsu.cgs.dummy.DummyContent;
-
 /**
  * A fragment representing a list of Items.
  * <p/>
@@ -33,8 +31,7 @@ import bsu.cgs.dummy.DummyContent;
  */
 public class class_subject_select extends Fragment implements AbsListView.OnItemClickListener {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+
     private static final String ARG_SECTION_NUMBER = "section_number";
     private OnFragmentInteractionListener mListener;
 

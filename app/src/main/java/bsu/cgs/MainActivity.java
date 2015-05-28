@@ -23,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 
 import bsu.cgs.Models.*;
@@ -37,6 +38,10 @@ public class MainActivity extends ActionBarActivity
         class_create.OnFragmentInteractionListener,
         class_subject_select.OnFragmentInteractionListener,
         class_mng_students.OnFragmentInteractionListener,
+        class_manage_criteria.OnFragmentInteractionListener,
+        class_mng.OnFragmentInteractionListener,
+        class_masterList.OnFragmentInteractionListener,
+        class_StudentGrade.OnFragmentInteractionListener,
         NavigationDrawerFragment.NavigationDrawerCallbacks
         {
 
@@ -47,6 +52,74 @@ public class MainActivity extends ActionBarActivity
     private NavigationDrawerFragment mNavigationDrawerFragment;
     private CharSequence mTitle;
     //class section
+            public void onGradeSave(int section, String cname, String grade)
+            {
+                fragmentManager = getSupportFragmentManager();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.container,class_masterList.newInstance(cname,section,grade))
+                        .commit();
+            }
+            public void onStudentGradeSelect(String cname,int section,int position)
+            {
+                fragmentManager = getSupportFragmentManager();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.container,class_StudentGrade
+                                .newInstance(cname,section,position))
+                        .commit();
+            }
+            public void onClassSelect(String cname,int section)
+            {
+                fragmentManager = getSupportFragmentManager();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.container,class_masterList.newInstance(cname,section))
+                        .commit();
+            }
+            public void onSaveCriteria(int section,List<String> criteria)
+            {
+                List<Criterion> crits = new ArrayList<Criterion>();
+                if(criteria.isEmpty())
+                {
+                    Context context = getApplicationContext();
+                    String text = "No criteria saved!";
+                    int duration = Toast.LENGTH_SHORT;
+
+                    Toast toast = Toast.makeText(context, text, duration);
+                    toast.show();
+                    fragmentManager = getSupportFragmentManager();
+                    fragmentManager.beginTransaction()
+                            .replace(R.id.container,class_create.newInstance(section,crits,0))
+                            .commit();
+                }
+                else
+                {
+                    for(String crit : criteria)
+                    {
+                        String[] parts = crit.split(":");
+                        String text = crit+" "+parts[1]+" "+parts[2];
+                        int duration = Toast.LENGTH_SHORT;
+
+                        Criterion newCrit = new Criterion();
+                        newCrit.CriterName = parts[0];
+                        newCrit.percentage = Double.parseDouble(parts[1]);
+                        newCrit.items = Integer.parseInt(parts[2]);
+                        newCrit.save();
+                        crits.add(newCrit);
+                    }
+                    Context context = getApplicationContext();
+                    String text = "Criteria saved!";
+                    int duration = Toast.LENGTH_SHORT;
+
+                    Toast toast = Toast.makeText(context, text, duration);
+                    toast.show();
+
+                    fragmentManager = getSupportFragmentManager();
+                    fragmentManager.beginTransaction()
+                            .replace(R.id.container,class_create.newInstance(section,crits,1))
+                            .commit();
+
+                }
+            }
+
             public void onStudentsSelected(int section,List<String> students) //@class_mng_studs
             {
                 fragmentManager = getSupportFragmentManager();
@@ -71,7 +144,7 @@ public class MainActivity extends ActionBarActivity
                         frag = class_create.newInstance(section);
                         break;
                     case 1:
-                      //  frag = class_mng.newInstance(section);
+                        frag = class_mng.newInstance(section);
                         break;
                     case 2:
                         //frag = class_edit.newInstance(section);
@@ -95,7 +168,7 @@ public class MainActivity extends ActionBarActivity
                         frag = class_mng_students.newInstance(section);
                         break;
                     case 2:
-                        //frag = class_mng_crit.newInstance(section);
+                        frag = class_manage_criteria.newInstance(section);
                         break;
                 }
                 fragmentManager = getSupportFragmentManager();

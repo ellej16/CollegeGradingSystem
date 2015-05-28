@@ -48,4 +48,9 @@
     <string name="class_mng_criteria">Manage Criteria</string>
     <string name="class_critstat">100% divided over 0 criteria</string>
     <string name="class_studstats">there are currently 0 students</string>
+    <string name="percentage">Percentage here (i.e. 45.5)</string>
+    <string name="recCount">How many records for this?</string>
+    <string name="Critname">Criterion Name</string>
+    <string name="add_crit">Add Criterion</string>
+    <string name="rem_crit">Remove Criterion</string>
 </resources>

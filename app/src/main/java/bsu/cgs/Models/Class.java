@@ -15,12 +15,6 @@ public class Class extends Model
     @Column(name="cSubject")
     public Subject cSubject;
 
-    //@Column(name="schYear")
-    //public String SchYr; //for future use
-
-    //@Column(name="CrtdBy")
-    //public User createdBy; //for future use
-
     @Column(name="cName")
     public String cName;
 
@@ -30,5 +24,12 @@ public class Class extends Model
     @Column(name="Criteria")
     public List<Criterion> criteria;
 
-    public Class(){}
+
+
+
+    public Class()
+    {
+        super();
+    }
+
 }

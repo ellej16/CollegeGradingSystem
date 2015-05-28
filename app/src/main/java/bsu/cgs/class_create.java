@@ -1,6 +1,7 @@
 package bsu.cgs;
 
 import android.app.Activity;
+import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.activeandroid.query.Select;
 
@@ -31,17 +33,20 @@ public class class_create extends Fragment
     private OnFragmentInteractionListener mListener;
 
     private static final String ARG_SECTION_NUMBER = "section_number";
-    private static final String ARG_SUBJ_CODE = "subject_code";
+
 
     //booleans for dynamic shit
     private static boolean subSelected = false;
 
 
-    Subject subj = null; //implements subj
-    ArrayList<Criterion>  criteria = null; //implements addcriteria
+    private static Subject subj = null; //implements subj
+    private static String subjCode =null;
+    private static List<Criterion>  criteria = new ArrayList<Criterion>(); //implements addcriteria
 
-    ArrayList<Student> students = null; //implements addstudent
+    private static ArrayList<Student> statStuds = new ArrayList<Student>(); //implements addstudent
     private static List<String> selStuds = new ArrayList<String>();
+
+
     Button btnMngStuds;
     Button btnMngCrit;
     Button btnSave;
@@ -58,8 +63,16 @@ public class class_create extends Fragment
         Bundle args = new Bundle();
         args.putInt(ARG_SECTION_NUMBER, sectionNumber);
         fragment.setArguments(args);
+
         subSelected = false;
         selStuds.clear();
+        if(criteria!=null)
+            criteria.clear();
+        subj = null;
+        subjCode = null;
+        if(statStuds!=null)
+            statStuds.clear();
+
         return fragment;
     }
 
@@ -68,9 +81,15 @@ public class class_create extends Fragment
         class_create fragment = new class_create();
         Bundle args = new Bundle();
         args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-        args.putString(ARG_SUBJ_CODE, subjcode);
         fragment.setArguments(args);
         subSelected = true;
+        subjCode = subjcode;
+        subj = new Select()
+                .from(Subject.class)
+                .where("subjcode=?",subjcode.split(":")[0])
+                .orderBy("RANDOM()")
+                .executeSingle();
+
 
         return fragment;
     }
@@ -82,7 +101,27 @@ public class class_create extends Fragment
         args.putInt(ARG_SECTION_NUMBER, sectionNumber);
         selStuds = students;
         fragment.setArguments(args);
+        for(String stud : students)
+        {
+            Student qStud;
+            qStud = new Select()
+                    .from(Student.class)
+                    .where("snum = ?",stud.split(":")[1])
+                    .orderBy("RANDOM()")
+                    .executeSingle();
+            statStuds.add(qStud);
 
+        }
+        return fragment;
+    }
+
+
+    public static class_create newInstance(int sectionNumber , List<Criterion> crits,int diff) {
+        class_create fragment = new class_create();
+        Bundle args = new Bundle();
+        args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+        fragment.setArguments(args);
+        criteria = crits;
         return fragment;
     }
 
@@ -117,7 +156,7 @@ public class class_create extends Fragment
         btnMngCrit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mListener.onSelectOption(getArguments().getInt(ARG_SECTION_NUMBER),2);
+                mListener.onSelectOption(getArguments().getInt(ARG_SECTION_NUMBER), 2);
             }
         });
 
@@ -133,8 +172,8 @@ public class class_create extends Fragment
         lblSubjName= (TextView) classCreateView.findViewById(R.id.lblSelSubj);
         if(subSelected)
         {
-            lblSubjCode.setText(getArguments().getString(ARG_SUBJ_CODE).split(":")[0]);
-            lblSubjName.setText(getArguments().getString(ARG_SUBJ_CODE).split(":")[1]);
+            lblSubjCode.setText(subjCode.split(":")[0]);
+            lblSubjName.setText(subjCode.split(":")[1]);
         }
 
         lblSubjName.setOnClickListener(new View.OnClickListener() {
@@ -152,10 +191,11 @@ public class class_create extends Fragment
 
 
         lblCritCount= (TextView) classCreateView.findViewById(R.id.lblCrit);
+        if(criteria.isEmpty())
+            lblCritCount.setText("100% divided over 0 criteria");
+        else
+            lblCritCount.setText("100% divided over "+criteria.size()+" criteria");
         tbCname = (EditText) classCreateView.findViewById(R.id.tbCname);
-
-
-
 
         return classCreateView;
     }
@@ -178,10 +218,18 @@ public class class_create extends Fragment
     }
 
     public void save()
-    {/*
-        if() //if requirements are not met
+    {
+        if(tbCname.getText().length()==0 ||
+                selStuds.isEmpty() ||
+                subj==null||
+                criteria.isEmpty())
         {
-            //TODO: communicating between fragments?
+            Context context = getActivity().getApplicationContext();
+            String text = "There is an empty field!";
+            int duration = Toast.LENGTH_SHORT;
+
+            Toast toast = Toast.makeText(context, text, duration);
+            toast.show();
         }
         else //else go g
         {
@@ -190,22 +238,30 @@ public class class_create extends Fragment
             Class qclass;
             qclass = new Select()
                 .from(Class.class)
-                .where("cName=? AND cSubject.desc = ?",tbCname.getText(),lblSubjName.getText())
+                .where("cName= ?",tbCname.getText())
                 .orderBy("RANDOM()")
                 .executeSingle();
             if(qclass!=null)
             {
+                Context context = getActivity().getApplicationContext();
+                String text = "Class already exists!";
+                int duration = Toast.LENGTH_SHORT;
+
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
 
             }
             else
             {
                 Class newClass = new Class();
                 newClass.cName = tbCname.getText().toString();
-
-                //todo:criteriaaaa
+                newClass.criteria = criteria;
+                newClass.cSubject = subj;
+                newClass.students = statStuds;
+                newClass.save();
             }
         }
-        */
+
     }
 
     public interface OnFragmentInteractionListener {

@@ -7,6 +7,7 @@
 
         <ListView android:id="@+id/critList" android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:choiceMode="multipleChoice"
             />
 
         <TextView android:id="@+id/mtTv" android:layout_width="match_parent"

@@ -19,6 +19,8 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import bsu.cgs.Models.Criterion;
+
 
 public class class_manage_criteria extends Fragment {
 
@@ -40,6 +42,8 @@ public class class_manage_criteria extends Fragment {
     EditText tbCritName;
     EditText tbPercent;
     EditText tbRecs;
+
+    View critManageView;
 
     Toast toast;
     CharSequence text;
@@ -68,7 +72,7 @@ public class class_manage_criteria extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View critManageView = inflater.inflate(R.layout.fragment_class_manage_criteria,
+       critManageView = inflater.inflate(R.layout.fragment_class_manage_criteria,
                 container, false);
 
 
@@ -155,16 +159,19 @@ public class class_manage_criteria extends Fragment {
        else
        {
 
+           critList.add(tbCritName.getText().toString()+
+                   ":"+tbPercent.getText().toString()+":"+tbRecs.getText().toString());
+           critAdapter.notifyDataSetChanged();
+           critListview = (ListView) critManageView.findViewById(R.id.critList);
+           critListview.setAdapter(critAdapter);
+           critAdapter.notifyDataSetChanged();
 
-
-           critAdapter.add(tbCritName.getText().toString()+
-                   ":"+tbPercent.getText().toString()+" %:"+tbRecs.getText().toString()+" records");
            Context context = getActivity().getApplicationContext();
-           text = tbCritName.getText().toString()+
-                   ":"+tbPercent.getText()+"%:"+tbRecs.getText().toString()+" records";
+
+           text = "Criterion added!";
            int duration = Toast.LENGTH_SHORT;
 
-           critAdapter.notifyDataSetChanged();
+
            toast = Toast.makeText(context, text, duration);
            toast.show();
 
@@ -179,10 +186,14 @@ public class class_manage_criteria extends Fragment {
         for(int i = 0; i < critListview.getCount(); i++)
             if (studList.get(i))
             {
-                Object item = critAdapter.getItem(i);
-                critAdapter.remove(item);
+                critList.remove(i);
             }
         critAdapter.notifyDataSetChanged();
+        critListview = (ListView) critManageView.findViewById(R.id.critList);
+        critListview.setAdapter(critAdapter);
+        critAdapter.notifyDataSetChanged();
+
+
         Context context = getActivity().getApplicationContext();
         text = "Criteria removed!";
         int duration = Toast.LENGTH_SHORT;
@@ -197,7 +208,7 @@ public class class_manage_criteria extends Fragment {
         mListener.onSaveCriteria(getArguments().getInt(ARG_SECTION_NUMBER),critList);
     }
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
+
         public void onSaveCriteria(int section, List<String> criteria);
     }
 
